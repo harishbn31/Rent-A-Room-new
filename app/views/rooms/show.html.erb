@@ -1,22 +1,32 @@
-<h2></h2>
-<p><h4><%=@room.name %></h4></p>
-<p><label>Price: </label>
-	<%=@room.price %>
-</p>
-<p><label>Description: </label>
-	<%=@room.description %>
-</p>
-<p><label>City Name: </label>
-	<%=@room.city.name %>
-</p>
-<p><label>User Name: </label>
-	<%=@room.user.username %>
-</p>
-<p><label>Amenities: </label>
-		<% @room.amenities.each do |amenity|%>
-	<li><%= amenity.name%></li>
-	<%end%>
-</p></br>
-<%= link_to "Book Room", new_booking_path %></br>
-<p>
-<%= image_tag(@room.images.url) %></p>
+
+<table >
+<thead>
+<tr>
+	<th> Image </th>
+	<th> Name </th>
+	<th> Price </th>
+	<th> Description </th>
+	<th> City Name </th>
+	<th> Belongs to user </th>
+	<th> Amenities</th>
+	<th>Book Room</th>
+	<th>Action</th>
+	
+</tr>
+</thead>
+<tbody>
+	<tr>
+		<td></td>
+		<td><%=@room.name %></td>
+		<td><%=@room.price %></td>
+		<td><%=@room.description %></td>
+		<td><%=@room.city.name %></td>
+		<td><%=@room.user.username %></td>
+		<td><% @room.amenities.each do |amenity|%>
+		<li><%= amenity.name%></li>
+		<%end%></td>
+		<td><%= link_to "Book Now", new_booking_path %></br></td>
+		<td><%= link_to "Update", edit_room_path %></td>
+		</tr>
+	</tbody>
+</table>

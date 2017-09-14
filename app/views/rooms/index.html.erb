@@ -1,13 +1,13 @@
 
-<h4>Listing Rooms</h4>
+<h4>Welcome to Rent a Room</h4>
 <p>
 <%if @rooms.empty? %>
 <p> No rooms found</p>
 <%else%>
-<table border ='1'>
+<table >
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Rooms</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,7 +16,7 @@
 	 <% @rooms.each do |room| %>
  <tr>
 		<%if (room.is_authorized == true) %>	
-		<td><%= link_to room.name, room%></td>
+		<td><%= link_to image_tag(room.images.url), room%></td>
 		<% elsif (current_user.role?"admin") && (room.is_authorized == false)%>
 		<td><%= link_to room.name, room%></td><% if current_user.role?"admin"%>
 			<%= form_for room do |f| %>
@@ -24,17 +24,12 @@
 			<td><%= f.submit "Authorize"%></td>
 			<%end%>
 			<%end%>
+			<%end%>
+		<%end%>
       </tr>
   </tbody>
 </table>
-
-	
-		<%end%>
-		<%end%>
-
-	</ul>
 <%end%>
-</p>
-
-<%= link_to "Add room", new_room_path %>
+<p>
+<%= link_to "Add room", new_room_path %></p>
 

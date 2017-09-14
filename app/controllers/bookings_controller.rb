@@ -10,7 +10,9 @@ class BookingsController < ApplicationController
   def create
   	@booking = Booking.new(booking_params)
   	if @booking.save
-  		redirect_to @booking.room
+  		redirect_to @booking.room, notice: "Room has been Booked"
+    else
+      redirect_to new_booking_path, notice: "check date and book agian"
   	end
   end
   def new

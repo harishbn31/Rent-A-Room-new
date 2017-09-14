@@ -28,6 +28,7 @@ before_action :set_room, only: [:show, :edit, :update, :destroy]
   
   def update
     if @room.update_attributes(params[:room].permit(:name, :description, :price, :rules,:address, :is_authorized))
+      Notification.room_auth(@room).deliver!
       redirect_to rooms_path, notice: "Successfully updated the room"
     else
       render action: "edit"

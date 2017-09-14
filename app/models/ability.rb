@@ -11,12 +11,13 @@ class Ability
         can :read, [City,Room,Booking]
         can :create, [Room,Booking]
     elsif user.role?"host"
-        can :create,[Room]
+        can [:read,:my_rooms], Room
+        can :create,[Room,Booking]
         can [:update,:destroy], Room do |room|
             room.user_id == current_user.id
             end
-        can :read, [City,Room,Amenity]
-        can :manage , :my_rooms
+        can :read, [City,Room,Amenity,Booking]
+
    end
     # Define abilities for the passed in user here. For example:
     #
