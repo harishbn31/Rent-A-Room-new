@@ -12,7 +12,8 @@ class Ability
         can :create, [Room,Booking]
     elsif user.role?"host"
         can [:read,:my_rooms], Room
-        can :create,[Room,Booking]
+        can :update, Booking
+        can [:create,:update],[Room,Booking]
         can [:update,:destroy], Room do |room|
             room.user_id == current_user.id
             end

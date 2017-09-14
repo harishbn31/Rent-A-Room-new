@@ -1,2 +1,39 @@
-<h2>Book a Room</h2>
+<h2>Welcome to Bookings DashBoard</h2>
+<strong>Listing the all bookings </strong>
+<table border = '1'>
+	<thead>
+		<tr>
+			<th>City Name</th>
+			<th>Room name</th>
+			<th>Start date</th>
+			<th>End date</th>
+			<th>Room price</th>
+			<th>Total</th>
+		</tr>
+	</thead>
+	<tbody>
+<% total = 0%>
+<% if @bookings.nil? %>
+<h4> No bookings found </h4>
+<%else%>
+<% @bookings.each do |booking| %>
+<tr>
+<td><%= booking.room.city.name %></td>
+<td><%= booking.room.name %></td>
+<td><%= booking.start_date %></td>
+<td><%= booking.end_date %></td>
+<td><%= booking.room.price %></td>
+<% total = booking.room.price * (booking.end_date - booking.start_date) %>
+<td><%= total %></td>
+<% if booking.room.user_id == current_user.id%>
+			<%= form_for booking do |f| %>
+			<%= f.hidden_field :is_confirmed, value: true%>
+			<td><%= f.submit "Confirm"%></td>
+			<%end%>
+			<%end%>
+<%end %>
+		</tr>
+	</tbody>
+</table>
+<%end%>
 

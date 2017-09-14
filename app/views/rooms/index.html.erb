@@ -15,8 +15,9 @@
   <tbody>
 	 <% @rooms.each do |room| %>
  <tr>
-		<%if (room.is_authorized == true) %>	
-		<td><%= link_to image_tag(room.images.url), room%></td>
+		<%if (room.is_authorized == true) %>
+		<td><%= link_to image_tag(room.images.url), room %></td>	
+		<td> <%=  room.name%></td>
 		<% elsif (current_user.role?"admin") && (room.is_authorized == false)%>
 		<td><%= link_to room.name, room%></td><% if current_user.role?"admin"%>
 			<%= form_for room do |f| %>
