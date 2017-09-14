@@ -1,4 +1,23 @@
 Rails.application.routes.draw do
+
+    get 'rooms/my_rooms'
+
+  get 'bookings/index'
+
+  get 'rooms/index'
+
+  get 'site/index'
+
+  get 'cities/index'
+  devise_for :users
+  root 'site#index'
+
+  resources :cities
+  resources :amenities
+  resources :rooms
+  resources :users
+  resources :bookings
+  resources :my_rooms
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

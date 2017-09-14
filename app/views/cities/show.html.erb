@@ -1,0 +1,19 @@
+<h2><%=@city.name%></h2>
+<% if @city.rooms.empty? %>
+<h4>No rooms found in location</h4>
+<%else%>
+<% @city.rooms.each do |room|%>
+
+<p>
+	<%=room.name %>
+</p>
+<p>
+	<%=room.description %>
+</p>
+<p>
+	<%=room.price %>
+</p>
+<%end%>
+<%end%>
+<%= link_to "Add Room" , new_room_path%>
+

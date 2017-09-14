@@ -1,0 +1,22 @@
+<h4>Add Room</h4>
+<%= form_for @room do |f| %>
+	<label>Name :</label><br/>
+	<%= f.text_field :name%><br/>
+	<label>Description :</label><br/>
+	<%= f.text_area :description%><br/>
+	<label>address :</label><br/>
+	<%= f.text_area :address%><br/>
+	<label>rules :</label><br/>
+	<%= f.text_area :rules%><br/>
+	<label>price :</label><br/>
+	<%= f.text_field :price%><br/>
+	<label>Amenities</label>
+	<%=f.collection_check_boxes :amenity_ids, Amenity.all,:id,:name, prompt: "Select amenities"%></br>
+	<%= f.hidden_field :user_id , value: current_user.id%>
+	<p>
+	<%= f.collection_select :city_id,City.all,:id,:name, prompt:"select City" %></br></p>
+	<p><label>Images :</label>
+	<%= f.file_field :images%><br/></p>
+	<%= f.submit %><br/>
+<% end %>
+	

@@ -1,0 +1,20 @@
+
+<h4>Listing Cities</h4>
+<%= form_tag cities_path, method: :get do%>
+<label>Search</label>
+<%= text_field_tag :search %>
+<%= submit_tag "Search"%>
+<%end%> 
+<p>
+<%if @cities.empty? %>
+<p> No city found</p>
+<%else%>
+	<ul> <% @cities.each do |city| %>
+		<li><%= link_to city.name, city%></li>
+		<%end%>
+	</ul>
+<%end%>
+</p>
+<% if can? :create, City.new %>
+<%=link_to "Add City",new_city_path %>
+<%end%>
