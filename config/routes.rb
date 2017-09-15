@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
     get 'rooms/my_rooms'
+    get 'bookings/unconfirmed'
+    get 'bookings/list'
 
-  get 'bookings/index'
-
-  get 'rooms/index'
+    get 'rooms/index'
 
   get 'site/index'
 

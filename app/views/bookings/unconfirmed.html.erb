@@ -1,0 +1,37 @@
+<strong>Listing the all Unconfirmed bookings </strong>
+<% if @bookings.empty? %>
+<h4> No bookings found </h4>
+<%else%>
+<table border = '1'>
+	<thead>
+		<tr>
+			<th>City Name</th>
+			<th>Room name</th>
+			<th>Start date</th>
+			<th>End date</th>
+			<th>Room price</th>
+			<th>Total</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+<% @bookings.each do |booking| %>
+<% if booking.room.user_id == current_user.id%><tr>
+<td><%= booking.room.city.name %></td>
+<td><%= booking.room.name %></td>
+<td><%= booking.start_date %></td>
+<td><%= booking.end_date %></td>
+<td><%= booking.room.price %></td>
+<% total = booking.room.price * (booking.end_date - booking.start_date) %>
+<td><%= total %></td>
+
+			<%= form_for booking do |f| %>
+			<%= f.hidden_field :is_confirmed, value: true%>
+			<td><%= f.submit "Confirm"%></td>
+			<%end%>
+	<%end%>
+<%end %>
+<%end%>
+		</tr>
+	</tbody>
+</table>

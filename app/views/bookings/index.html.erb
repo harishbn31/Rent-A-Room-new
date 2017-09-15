@@ -1,23 +1,27 @@
 <h2>Welcome to Bookings DashBoard</h2>
 <strong>Listing the all bookings </strong>
+<% if @bookings.empty? %>
+<h4> No bookings found </h4>
+<%else%>
 <table border = '1'>
 	<thead>
 		<tr>
+			<th>Owner Name</th>
 			<th>City Name</th>
 			<th>Room name</th>
 			<th>Start date</th>
 			<th>End date</th>
 			<th>Room price</th>
 			<th>Total</th>
+			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
 <% total = 0%>
-<% if @bookings.nil? %>
-<h4> No bookings found </h4>
-<%else%>
+
 <% @bookings.each do |booking| %>
 <tr>
+<td><%= booking.room.user.username%></td>
 <td><%= booking.room.city.name %></td>
 <td><%= booking.room.name %></td>
 <td><%= booking.start_date %></td>
@@ -25,12 +29,13 @@
 <td><%= booking.room.price %></td>
 <% total = booking.room.price * (booking.end_date - booking.start_date) %>
 <td><%= total %></td>
+<td><%= link_to "Cancel",booking, method: :delete, data: {confirm: "Are you Sure?"} %></td>
 <% if booking.room.user_id == current_user.id%>
 			<%= form_for booking do |f| %>
 			<%= f.hidden_field :is_confirmed, value: true%>
 			<td><%= f.submit "Confirm"%></td>
 			<%end%>
-			<%end%>
+	<%end%>
 <%end %>
 		</tr>
 	</tbody>

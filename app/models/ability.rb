@@ -9,13 +9,13 @@ class Ability
         can :manage, :all
     elsif user.role?"guest"
         can :read, [City,Room,Booking]
-        can :create, [Room,Booking]
+        can [:create], [Room,Booking]
     elsif user.role?"host"
         can [:read,:my_rooms], Room
-        can :update, Booking
-        can [:create,:update],[Room,Booking]
+        can [:create],[Room,Booking]
+        can [:update,:unconfirmed], Booking
         can [:update,:destroy], Room do |room|
-            room.user_id == current_user.id
+            room.user_id == user.id
             end
         can :read, [City,Room,Amenity,Booking]
 

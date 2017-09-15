@@ -1,0 +1,45 @@
+<strong>Listing the all  bookings </strong>
+<% if @bookings.empty? %>
+<h4> No bookings found </h4>
+<%else%>
+<table border = '1'>
+	<thead>
+		<tr>
+			<th>id</th>
+			<th>Room name</th>
+			<% if can? :update, Booking.new%>
+			<th>Host</th>
+			<%end%>
+
+			<th>Start date</th>
+			<th>End date</th>
+			<th>User</th>
+			<th>Mobile</th>
+			<th>email</th>
+			<th>Room price</th>
+			<th>Days</th>
+			
+		</tr>
+	</thead>
+	<tbody>
+		<% @bookings.each.with_index do |booking,index| %>
+		<tr>
+		<td><%= index + 1 %>.</td>
+		<td><%= booking.room.name %></td>
+			<% if can? :update, Booking.new%>
+		<td><%= booking.room.user.username %></td>
+			<%end%>
+		<td><%= (booking.start_date).to_formatted_s(:rfc822) %></td>
+		<td><%= (booking.end_date).strftime('%A,%d,%b,%Y') %></td>
+		<td><%= booking.user.username%></td>
+		<td><%= booking.user.mobile %></td>
+		<td><%= booking.user.email %></td>
+		<td><%= booking.room.price %></td>
+		<% total_days =  booking.end_date - booking.start_date %>
+		<td><%= total_days.to_i %></td>
+		<%end%>
+
+</tr>
+</tbody>
+</table>
+<%end%>

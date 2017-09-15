@@ -4,35 +4,52 @@ class BookingsController < ApplicationController
     before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
   def index
-    if current_user.role.name == "host"
-
-      @bookings = Booking.all
-    else
-       @bookings = current_user.bookings
-    end
+      @bookings = current_user.bookings
+    
   end
 
   def create
   	@booking = Booking.new(booking_params)
 
   	if @booking.save
+       Notification.booking_done(@booking).deliver!
   		redirect_to @booking.room, notice: "Room has been Booked"
     else
-      redirect_to @booking.room, notice: "check date and book agian"
+      redirect_to @booking.room, notice: " #{@booking.errors[:base]}"
   	end
   end
 
   def update
-    binding.pry
-    if @booking.update_attributes(params[:booking].permit(:is_confirmed))
-      # Notification.booking_auth(@booking).deliver!
-      redirect_to bookings_path, notice: "Successfully updated the booking"
+    # binding.pry
+    if params[:booking][:is_confirmed]
+      @booking.update_attributes(is_confirmed: true)
+      if @booking.is_confirmed == true
+        Notification.booking_confirmation(@booking).deliver!
+        redirect_to bookings_path, notice: "Booking Confirmed"
+      else
+        redirect_to bookings_path, notice: "Wait for Confirmation"
+      end
     else
-      redirect_to bookings_path
+      redirect_to bookings_path, notice: "#{@booking.errors[:base]}"
     end
   end
   def new
   	@booking = Booking.new
+  end
+
+  def destroy
+      @booking = Booking.find(params[:id])
+    if @booking.destroy
+      redirect_to bookings_path, notice: "cancelled the booking"
+    end  
+  end
+  def unconfirmed
+
+    @bookings = Booking.where('is_confirmed = ? ' , false)
+    # binding.pry
+  end
+  def list
+    @bookings = Booking.all
   end
 
   private

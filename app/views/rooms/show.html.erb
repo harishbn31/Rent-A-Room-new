@@ -24,7 +24,12 @@
 		<td><% @room.amenities.each do |amenity|%>
 		<%= amenity.name%></br>
 		<%end%></td>
-		<td><%= link_to "Update", edit_room_path %></td>
+		<% if can? :update, :destroy, Room.new %>
+		<td><%= link_to "Update", edit_room_path(@room) %></td>
+		<td><%= link_to "Delete",@room, method: :delete, data: {confirm: "Are you Sure?"} %></td>
+		<%end%>
+		
+		
 		</tr>
 	</tbody>
 </table>
@@ -40,8 +45,3 @@
 <%= f.submit "Book Now"%>
 <%end%>
 </p>
-<%= form_tag @room, method: :get do%>
-<label>Total</label>
-<%= text_field_tag :total %>
-<%= submit_tag "Calculate"%>
-<%end%> 

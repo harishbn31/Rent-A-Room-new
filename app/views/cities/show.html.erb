@@ -1,19 +1,30 @@
-<h2><%=@city.name%></h2>
-<% if @city.rooms.empty? %>
-<h4>No rooms found in location</h4>
-<%else%>
-<% @city.rooms.each do |room|%>
-
-<p>
-	<%=room.name %>
-</p>
-<p>
-	<%=room.description %>
-</p>
-<p>
-	<%=room.price %>
-</p>
+<% if can? :create, City.new %>|
+<%=link_to "Update",edit_city_path(@city) %>|
+<%=link_to "Delete",@city, method: :delete, data: {confirm: "Are you Sure?"}  %>
 <%end%>
+	<h2><%=@city.name%></h2>
+	
+	<% if @city.rooms.empty? %>
+		<h4>No rooms found in location</h4>
+	<%else%>
+	<table border = '1'>
+		<thead>
+		<tr>
+			<th>Room Name</th>
+			<th>Room Description</th>
+			<th>Room Price per day</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<% @city.rooms.each do |room|%>
+			<td><%= link_to room.name, room %></td>
+			<td><%=room.description %></td>
+			<td><%=room.price %></td>
+		</tr>
+	</tbody>
+	<%end%>
 <%end%>
+</table>
 <%= link_to "Add Room" , new_room_path%>
 
