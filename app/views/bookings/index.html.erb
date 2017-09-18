@@ -17,8 +17,6 @@
 		</tr>
 	</thead>
 	<tbody>
-<% total = 0%>
-
 <% @bookings.each do |booking| %>
 <tr>
 <td><%= booking.room.user.username%></td>
@@ -29,7 +27,9 @@
 <td><%= booking.room.price %></td>
 <% total = booking.room.price * (booking.end_date - booking.start_date) %>
 <td><%= total %></td>
+<%if booking.is_confirmed == false%>
 <td><%= link_to "Cancel",booking, method: :delete, data: {confirm: "Are you Sure?"} %></td>
+<%end%>
 <% if booking.room.user_id == current_user.id%>
 			<%= form_for booking do |f| %>
 			<%= f.hidden_field :is_confirmed, value: true%>

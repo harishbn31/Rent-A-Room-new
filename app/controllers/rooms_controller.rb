@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-	before_action :authenticate_user!
+	# before_action :authenticate_user!
   load_and_authorize_resource
   before_action :set_room, only: [:show, :edit, :update, :destroy]
 
@@ -44,6 +44,10 @@ class RoomsController < ApplicationController
   
   def edit
 
+  end
+
+  def authorization_rooms
+    @rooms = Room.where('is_authorized = ?', false)
   end
 
   def my_rooms

@@ -7,6 +7,7 @@ class Ability
         can :read, :all
     elsif user.role?"admin"
         can :manage, :all
+        can :read, :authorization_rooms
     elsif user.role?"guest"
         can :read, [City,Room,Booking]
         can [:create], [Room,Booking]

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     get 'rooms/my_rooms'
     get 'bookings/unconfirmed'
     get 'bookings/list'
+    get 'rooms/authorization_rooms'
 
     get 'rooms/index'
 

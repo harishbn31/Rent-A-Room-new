@@ -10,6 +10,7 @@ class BookingsController < ApplicationController
 
   def create
   	@booking = Booking.new(booking_params)
+    @booking.user_id = current_user.id
 
   	if @booking.save
        # Notification.booking_done(@booking).deliver!

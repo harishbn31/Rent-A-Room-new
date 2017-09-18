@@ -14,16 +14,20 @@
 <%= link_to "Cities", cities_path%>|
 <%= link_to "Rooms", rooms_path%>|
 	<% if can? :create, Room.new%>
-	<%= link_to "My Rooms", rooms_my_rooms_path%>|
+	<%= link_to "My Rooms", rooms_my_rooms_path%>
 	<%end%>
-<%=link_to "Dash Board", bookings_path %>|
-<%= link_to "List of all bookings", bookings_list_path %>
-	<% if can? :create, Amenity.new%>
+|<%=link_to "Dash Board", bookings_path %>
+|<%= link_to "List of all bookings", bookings_list_path %>
+	<% if can? :create, Amenity.new,%>
 		|<%= link_to "Amenities", amenities_path%>
-
 	<%end%>
-	<% if can? :update, Booking.new %>
-		<%= link_to "Unconfirmed Rooms", bookings_unconfirmed_path %>
+	<%if current_user.role?"admin" %>
+	|<%= link_to "Non authorized rooms", rooms_authorization_rooms_path %>
+	<%end%>
+
+
+	<% if (can? :update, Booking.new) && (current_user.role?"host") %>
+		|<%= link_to "Unconfirmed Bookings", bookings_unconfirmed_path %>
 	<%end%>
 
 <%else%>

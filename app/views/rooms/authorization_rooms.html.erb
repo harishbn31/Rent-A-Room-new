@@ -1,0 +1,36 @@
+<h4>Welcome Authorization Room</h4>
+<p>
+<%if @rooms.empty? %>
+<p> No rooms found</p>
+<%else%>
+	<table border = '1'>
+		<thead>
+			<tr>
+				<th>Room name</th>
+				<th>Host Name</th>
+				<th>City Nmae</th>
+				<th>Prcie</th>
+				<th>Authorize</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			
+		<% @rooms.each do |room| %>
+		<tr>
+		<td><%=  room.name %></td>
+		<td><%=  room.user.username %></td>
+		<td><%=  room.city.name %></td>
+		<td><%=  room.price %></td>
+		<% if current_user.role?"admin"%>
+				<%= form_for room do |f| %>
+				<%= f.hidden_field :is_authorized, value:true%>
+				<td><%= f.submit "Authorize"%></td>
+		 <%end%>
+		<%end%>
+	<%end%>
+	
+			</tr>
+		</tbody>
+	</table>
+<%end%>
