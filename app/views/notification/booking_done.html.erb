@@ -3,5 +3,5 @@
 <p>
 	Your room has been booked by <%= @booking.user.username%>
 </p>
-<strong><%= @booking.start_date%></strong>
-<strong><%= @booking.end_date%></strong>
+<strong><%= @booking.start_date.to_formatted_s(:rfc822)%> To</strong>
+<strong><%= @booking.end_date.to_formatted_s(:rfc822)%></strong>

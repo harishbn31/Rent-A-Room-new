@@ -24,8 +24,8 @@
 <td><%= booking.room.user.username%></td>
 <td><%= booking.room.city.name %></td>
 <td><%= booking.room.name %></td>
-<td><%= booking.start_date %></td>
-<td><%= booking.end_date %></td>
+<td><%= booking.start_date.to_formatted_s(:rfc822) %></td>
+<td><%= booking.end_date.to_formatted_s(:rfc822) %></td>
 <td><%= booking.room.price %></td>
 <% total = booking.room.price * (booking.end_date - booking.start_date) %>
 <td><%= total %></td>

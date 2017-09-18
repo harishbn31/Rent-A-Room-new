@@ -6,9 +6,9 @@ class Booking < ActiveRecord::Base
 	validate :check_date, on: :create
 
 	def check_published_date
-		if self.start_date < Date.today && self.end_date < Date.today
-			self.errors.add(:base,"cannot be less than today")
-		end
+			if (self.start_date < Date.today) && (self.end_date <= Date.today)
+			self.errors.add(:base,"date cannot be less than today")
+			end
 	end
 
 

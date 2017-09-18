@@ -12,7 +12,8 @@ class BookingsController < ApplicationController
   	@booking = Booking.new(booking_params)
 
   	if @booking.save
-       Notification.booking_done(@booking).deliver!
+       # Notification.booking_done(@booking).deliver!
+       # Notification.wait_for_confirmation(@booking).deliver!
   		redirect_to @booking.room, notice: "Room has been Booked"
     else
       redirect_to @booking.room, notice: " #{@booking.errors[:base]}"
@@ -20,7 +21,6 @@ class BookingsController < ApplicationController
   end
 
   def update
-    # binding.pry
     if params[:booking][:is_confirmed]
       @booking.update_attributes(is_confirmed: true)
       if @booking.is_confirmed == true
@@ -44,9 +44,7 @@ class BookingsController < ApplicationController
     end  
   end
   def unconfirmed
-
     @bookings = Booking.where('is_confirmed = ? ' , false)
-    # binding.pry
   end
   def list
     @bookings = Booking.all
@@ -57,8 +55,7 @@ class BookingsController < ApplicationController
   	params.require(:booking).permit(:start_date,:end_date,:user_id,:room_id,:is_confirmed)
   end
 
-def set_booking
+  def set_booking
       @booking = Booking.find(params[:id])
-      # @room = Room.find(params[:id])
     end
 end
