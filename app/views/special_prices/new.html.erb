@@ -1,0 +1,11 @@
+<h2>Add Special Price on dates</h2>
+	<%= form_for  @special_price, url: room_special_prices_path ,method: :post do |f| %>
+	<label>Start Date</label>
+	<%= f.date_field :start_date%>
+	<label>End Date</label>
+	<%= f.date_field :end_date %>
+	<label>Price</label>
+	<%= f.text_field :price %>
+	<%= f.submit "Add" %>
+	
+<%end %>

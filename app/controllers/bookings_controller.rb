@@ -11,7 +11,7 @@ class BookingsController < ApplicationController
   def create
   	@booking = Booking.new(booking_params)
     @booking.user_id = current_user.id
-
+    
   	if @booking.save
        # Notification.booking_done(@booking).deliver!
        # Notification.wait_for_confirmation(@booking).deliver!
@@ -53,7 +53,7 @@ class BookingsController < ApplicationController
 
   private
   def booking_params
-  	params.require(:booking).permit(:start_date,:end_date,:user_id,:room_id,:is_confirmed)
+  	params.require(:booking).permit(:start_date,:end_date,:user_id,:room_id,:is_confirmed, :price)
   end
 
   def set_booking

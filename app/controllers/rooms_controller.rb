@@ -21,6 +21,9 @@ class RoomsController < ApplicationController
 
   def show 
     @booking = Booking.new
+    @special_price = SpecialPrice.new
+    @reviews = @room.reviews
+    @review = Review.new
   end
   
   def destroy

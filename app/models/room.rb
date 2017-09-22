@@ -8,6 +8,8 @@ class Room < ActiveRecord::Base
 	has_many :amenities ,through: :amenity_rooms
 	belongs_to :city
 	belongs_to :user
+  has_many :reviews
+  has_many :special_prices
 	before_save :determine
 	after_create :change_role
 	def determine
