@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :rooms do
-    resources :special_prices
-end
+ 
     get 'rooms/my_rooms'
     get 'bookings/unconfirmed'
     get 'bookings/list'
@@ -13,6 +11,9 @@ end
   get 'site/index'
 
   get 'cities/index'
+   resources :rooms do
+    resources :special_prices
+    end
   devise_for :users
   root 'site#index'
   resources :reviews
@@ -21,7 +22,6 @@ end
   resources :rooms
   resources :users
   resources :bookings
-  resources :my_rooms
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

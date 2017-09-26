@@ -4,7 +4,7 @@ class BookingsController < ApplicationController
     before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
   def index
-      @bookings = current_user.bookings
+      @bookings = current_user.bookings.where('is_confirmed = ?', false)
     
   end
 
@@ -23,10 +23,10 @@ class BookingsController < ApplicationController
 
   def update
     if params[:booking][:is_confirmed]
-      @booking.update_attributes(is_confirmed: true)
+      @booking.update_attributes(booking_params)
       if @booking.is_confirmed == true
-        Notification.booking_confirmation(@booking).deliver!
-        redirect_to bookings_path, notice: "Booking Confirmed"
+        # Notification.booking_confirmation(@booking).deliver!
+        redirect_to :back, notice: "Booking Confirmed"
       else
         redirect_to bookings_path, notice: "Wait for Confirmation"
       end
@@ -39,13 +39,13 @@ class BookingsController < ApplicationController
   end
 
   def destroy
-      @booking = Booking.find(params[:id])
     if @booking.destroy
-      redirect_to bookings_path, notice: "cancelled the booking"
+      redirect_to :back, notice: "cancelled the booking"
     end  
   end
   def unconfirmed
-    @bookings = Booking.where('is_confirmed = ? ' , false)
+    # binding.pry
+    @bookings = Booking.where('is_confirmed = ?', false)
   end
   def list
     @bookings = Booking.all
@@ -53,7 +53,7 @@ class BookingsController < ApplicationController
 
   private
   def booking_params
-  	params.require(:booking).permit(:start_date,:end_date,:user_id,:room_id,:is_confirmed, :price)
+  	params.require(:booking).permit(:start_date,:end_date,:user_id,:room_id,:is_confirmed,:price)
   end
 
   def set_booking

@@ -10,12 +10,15 @@ class Ability
         can :read, :authorization_rooms
     elsif user.role?"guest"
         can :read, [City,Room,Booking,Review]
-        can [:create], [Room,Booking,Review]
+        can :create, [Room,Booking,Review]
+        can :destroy, Booking do |booking|
+            booking.user_id == user.id 
+            end
     elsif user.role?"host"
         can [:read,:my_rooms], Room
         can :create ,SpecialPrice
         can [:create],[Room,Booking]
-        can [:update,:unconfirmed], Booking
+        can [:update,:unconfirmed, :destroy], Booking 
         can [:update,:destroy], Room do |room|
             if room.user_id == user.id
                 can :manage, SpecialPrice

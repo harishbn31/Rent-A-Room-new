@@ -5,6 +5,7 @@ class RoomsController < ApplicationController
 
   def index
   	@rooms = Room.all
+    @rooms = Room.paginate(:page => params[:page], :per_page => 4)
   end
 
   def new
@@ -22,6 +23,7 @@ class RoomsController < ApplicationController
   def show 
     @booking = Booking.new
     @special_price = SpecialPrice.new
+    @special_prices = @room.special_prices
     @reviews = @room.reviews
     @review = Review.new
   end

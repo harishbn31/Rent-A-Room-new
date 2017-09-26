@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 	belongs_to :role
 	has_many :bookings
 	has_many :rooms
+	has_many :reviews
 	after_create :assign_default_role
 
 	def role?(role)

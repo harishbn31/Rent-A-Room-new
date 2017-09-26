@@ -22,13 +22,12 @@
 <td><%= booking.start_date.to_formatted_s(:rfc822) %></td>
 <td><%= booking.end_date.to_formatted_s(:rfc822) %></td>
 <td><%= booking.room.price %></td>
-<% total = booking.room.price * (booking.end_date - booking.start_date) %>
-<td><%= total %></td>
-
+<td><%= booking.price %></td>
 			<%= form_for booking do |f| %>
 			<%= f.hidden_field :is_confirmed, value: true%>
 			<td><%= f.submit "Confirm"%></td>
 			<%end%>
+			<td><%= link_to "Cancel", booking_path(booking.id), method: :delete, data: {confirm: "Are you Sure?"} %></td>
 	<%end%>
 <%end %>
 <%end%>

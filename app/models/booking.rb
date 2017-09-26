@@ -34,24 +34,21 @@ class Booking < ActiveRecord::Base
 	end
 
 	def check_offer_price
+		cost = 0
+		new_array = []
 		offer_dates = SpecialPrice.where('room_id = ?',self.room.id)
-		
 			new_date = (self.start_date..self.end_date).to_a
 			
-				offer_dates.each do |date|
-				 initial = date.start_date
-				 final = date.end_date
-				 offer_days = (initial..final).to_a
-				 
-				 offer_days.each do |day3|
-				 	new_date.each do |day1|
-				 	if day1 == day3  
-				 		binding.pry
-						self.price += date.price + self.room.price
-					end
-					
+		offer_dates.each do |offer|
+			offer_days = (offer.start_date..offer.end_date).to_a
+				new_date.each do |day1|
+					if offer_days.include?(day1)
+						cost += offer.price
+						new_array.push(day1)
+					end	
 				end
-			end
 		end
+		cost += (new_date - new_array).length * self.price
+		self.price = cost
 	end
 end

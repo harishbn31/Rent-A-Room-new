@@ -46,7 +46,28 @@
 	<%end%>
 </p>
 <p><%if current_user.id == @room.user_id %>
-	<%= link_to "Add Special price",new_room_special_price_path(@room.id)%>
+	<%= link_to "Add Special price",new_room_special_price_path(@room.id)%></br>
+	<table border=" 1">
+		<thead> 
+			<tr>
+				<th> Start date</th>
+				<th> End date</th>
+				<th>price </th>
+				<th>room Name</th>		
+			</tr> 
+		</thead>  
+		<tbody>
+			<tr>
+	<% @special_prices.each do |special_price| %>
+				<td><%= special_price.start_date.strftime('%d,%b,%Y') %></td>
+				<td><%= special_price.end_date.strftime('%d,%b,%Y') %></td>
+				<td><%= special_price.price %></td>
+				<td><%= special_price.room.name %></td>
+		
+			</tr>
+		</tbody>
+		<%end%>
+</table>
 <%end%></p>
 
 <h2>Reviews</h2>
@@ -55,21 +76,24 @@
 <% else%>
 	<% @reviews.each do |review| %>
 	<%= review.review %>
+	<strong>Average Rating</strong> 
+	<% avg_rating = (review.food_rating + review.cleanliness_rating+ review.safety_rating+review.facility_rating+review.locality_rating).to_f/5 %>
+	<%= avg_rating %></br>
 	<%end%>
 <%end%>
 <h2>Add Review</h2>
 <%= form_for @review do |f| %>
-<label>Review</label></br>
-<%= f.text_area :review %>
-<label>Food Rating</label></br>
+<label>Review</label><%= f.text_area :review %>
+<label>Food Rating</label>
 <%= f.select :food_rating, (1..5).to_a%>
-<label>cleanliness Rating</label></br>
+<label>cleanliness Rating</label>
 <%= f.select :cleanliness_rating, (1..5).to_a%>
-<label>Safety Rating</label></br>
+<label>Safety Rating</label>
 <%= f.select :safety_rating, (1..5).to_a%>
-<label>facility Rating</label></br>
+<label>facility Rating</label>
 <%= f.select :facility_rating, (1..5).to_a%>
-<label>Locality Rating</label></br>
+<label>Locality Rating</label>
+<%= f.select :locality_rating, (1..5).to_a%>
 <%= f.hidden_field :user_id, value: current_user.id%>
 <%= f.hidden_field :room_id, value: @room.id %>
 <%= f.submit "Add"%>

@@ -8,7 +8,9 @@ class ReviewsController < ApplicationController
   def create
   	@review = Review.new(review_params)
   	   if @review.save
-  	 	   redirect_to room_path, notice: "created review"
+  	 	   redirect_to :back, notice: "created review"
+       else
+        redirect_to :back, notice: " #{@review.errors[:base]}"
   	   end
   end
 
