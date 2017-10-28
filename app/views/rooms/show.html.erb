@@ -98,4 +98,44 @@
 <%= f.hidden_field :room_id, value: @room.id %>
 <%= f.submit "Add"%>
 <%end%>
+<script>
+
+  // window.onload = function(){}
+  $(document).ready(function(){
+
+    var disabledDates = <%= raw Booking.all.pluck(:start_date, :end_date).map{|dates| (dates[0]..dates[1]).to_a}.flatten.uniq.map{|date| date.strftime("%d-%m-%Y")} %> 
+
+    function DisableSpecificDates(date) {
+      var string = jQuery.datepicker.formatDate('dd-mm-yy', date);
+    return [disabledDates.indexOf(string) == -1];
+  }
+
+    $('#booking_start_date').datepicker({
+      beforeShowDay: DisableSpecificDates,
+      dateFormat: 'yy-mm-dd', 
+      numberOfMonths: 2, 
+      minDate: 0
+    });
+
+    function setEndDate(startingDate){
+      $('#booking_end_date').datepicker({
+        beforeShowDay: DisableSpecificDates,
+        minDate: startingDate,
+        dateFormat: 'yy-mm-dd', 
+        numberOfMonths: 2
+      });
+    }
+
+    $('#booking_start_date').on('change', function(){
+      var startingDate = new Date($('#booking_start_date').val());
+      // remove the setting for the booking end date datepicker 
+      $('#booking_end_date').datepicker("destroy");
+      setEndDate(startingDate);
+      setTimeout(function(){
+        $('#booking_end_date').focus()
+      }, 0);
+    });
+
+  });
+</script>
 

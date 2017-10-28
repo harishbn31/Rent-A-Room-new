@@ -4,38 +4,20 @@
   <title>RentARoom</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src= "https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
   <%= csrf_meta_tags %>
+  
 </head>
 <body>
-<%if user_signed_in?%>
-<%=current_user.username%>|
-<%= link_to "Account Settings", edit_user_registration_path%>|
-<%= link_to "Logout", destroy_user_session_path, method: :delete %>|
-<%= link_to "Cities", cities_path%>|
-<%= link_to "Rooms", rooms_path%>|
-
-|<%=link_to "Dash Board", bookings_path %>
-|<%= link_to "List of all bookings", bookings_list_path %>
-	<% if can? :create, Amenity.new,%>
-		|<%= link_to "Amenities", amenities_path%>
-	<%end%>
-	<%if current_user.role?"admin" %>
-	|<%= link_to "Non authorized rooms", rooms_authorization_rooms_path %>
-	<%end%>
+	<div class="container">
+		<%= render './layouts/nav'%>
 
 
-	<% if (can? :update, Booking.new) && (current_user.role?"host") %>
-		|<%= link_to "Unconfirmed Bookings", bookings_unconfirmed_path %>
-		|<%= link_to "My Rooms", rooms_my_rooms_path%>
-	<%end%>
-
-<%else%>
-
-<%= link_to "Login", new_user_session_path%> | <%= link_to "Register", new_user_registration_path %>
-<%end%>
   <p class="notice"><%= notice %></p>
  <p class="alert"><%= alert %></p>
 <%= yield %>
-
+	</div>
 </body>
 </html>

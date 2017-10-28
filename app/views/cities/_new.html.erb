@@ -1,0 +1,12 @@
+<%= form_for(@city, remote: true) do |f| %>
+  <% if @city.errors.any? %>
+   <%= render 'errors'%>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+    <div class="actions">
+    <%= f.submit "Add city", class: "btn btn-primary" %>
+  </div>
+<% end %>
