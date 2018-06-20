@@ -9,9 +9,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-# Role.create(name: "admin")
-# Role.create(name: "host")
-# Role.create(name: "guest")
+Role.create(name: "admin")
+Role.create(name: "host")
+Role.create(name: "guest")
 
 u = User.new
 u.email = "admin@gmail.com"
