@@ -12,7 +12,7 @@ class Review < ActiveRecord::Base
 		end_dates = self.user.bookings.where('room_id = ? AND end_date < ?',self.room_id, Date.today)
 
 			if end_dates.empty?
-				self.errors.add(:base, "After checkout you can addd review")
+				self.errors.add(:base, "After checkout you can add review")
 			end
 	end
 

@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+gem 'json'
 gem 'devise'
 gem 'cancancan'
 gem 'pry'

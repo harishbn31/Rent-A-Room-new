@@ -13,9 +13,11 @@ class Room < ActiveRecord::Base
 	before_save :determine
 	after_create :change_role
 	def determine
-  		response = HTTParty.get("http://maps.googleapis.com/maps/api/geocode/json?address=#{self.address}")
+			response = HTTParty.get("http://maps.googleapis.com/maps/api/geocode/json?address=#{self.address}")
+			
   		result = JSON.parse(response.body)
-  		if result.present?
+			if result.present?
+				# binding.pry
   	    self.latitude = result["results"][0]["geometry"]["location"]["lat"]
   		  self.longitude = result["results"][0]["geometry"]["location"]["lng"]
       end

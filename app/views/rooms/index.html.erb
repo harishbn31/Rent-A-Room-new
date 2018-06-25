@@ -1,4 +1,4 @@
-<h4>Welcome to Rent a Room</h4>
+<h4>Rooms Index</h4>
 <p>
 <%if @rooms.empty? %>
 <p> No rooms found</p>
@@ -8,8 +8,9 @@
  
 	<%if (room.is_authorized == true) %>
 	
-		<%= link_to image_tag(room.images.url), room %>	
-		<%= link_to image_tag(room.name), room %>
+		<p><%= link_to image_tag(room.images.url), room %>	
+		<%= link_to room.name, room %></p>
+		<div class="col-md-12"><hr></div>
 	
 	 <%end%>
     <%end%>
