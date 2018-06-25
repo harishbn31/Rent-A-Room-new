@@ -2,7 +2,7 @@
 <% if @bookings.empty? %>
 <h4> No bookings found </h4>
 <%else%>
-<table border = '1'>
+<table class="table table-hover">
 	<thead>
 		<tr>
 			<th>City Name</th>
@@ -25,9 +25,9 @@
 <td><%= booking.price %></td>
 			<%= form_for booking do |f| %>
 			<%= f.hidden_field :is_confirmed, value: true%>
-			<td><%= f.submit "Confirm"%></td>
+			<td><%= f.submit "Confirm", class: "btn btn-info"%></td>
 			<%end%>
-			<td><%= link_to "Cancel", booking_path(booking.id), method: :delete, data: {confirm: "Are you Sure?"} %></td>
+			<td><%= link_to "Cancel", booking_path(booking.id), method: :delete, data: {confirm: "Are you Sure?"},class: "btn btn-info" %></td>
 	<%end%>
 <%end %>
 <%end%>

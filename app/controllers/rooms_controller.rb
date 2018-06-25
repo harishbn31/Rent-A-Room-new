@@ -37,7 +37,7 @@ class RoomsController < ApplicationController
   def update
     if @room.update_attributes(params[:room].permit(:name, :description, :price, :rules,:address, :is_authorized))
       if @room.is_authorized == true
-      Notification.room_auth(@room).deliver!
+      # Notification.room_auth(@room).deliver!
       redirect_to rooms_path, notice: "authorized the room"
       else
         redirect_to rooms_path, notice: "Successfully updated the room"
@@ -52,7 +52,7 @@ class RoomsController < ApplicationController
   end
 
   def authorization_rooms
-    @rooms = Room.where('is_authorized = ?', false)
+    @rooms = Room.where(:is_authorized => false)
   end
 
   def my_rooms

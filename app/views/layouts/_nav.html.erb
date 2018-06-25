@@ -21,34 +21,42 @@
         
             
             <% if can? :create, Amenity.new,%>
-              <li class=<%= controller.controller_name == "amenities" ? "active" : "" %>><a href="/amenities">Amenities </li>
+              <li class=<%= controller.controller_name == "amenities" ? "active" : "" %>><a href="/amenities">Amenities</a> </li>
                 <%if current_user.role?"admin" %>
-            <li class=<%= controller.controller_name == "rooms_authorization_rooms_path" ? "active" : "" %>><a href="/rooms/authorization_rooms_path">Non authorized rooms </li>
+            <li class=<%= controller.controller_name == "rooms_authorization_rooms_path" ? "active" : "" %>><a href="/rooms/authorization_rooms">Non authorized rooms </a></li>
             <%end%>
             <%end%>
             
 
 
             <% if (can? :update, Booking.new) && (current_user.role?"host") %>
-              <li class=<%= controller.controller_name == "rooms_authorization_rooms" ? "active" : "" %>><a href="/rooms_authorization_rooms">Unconfirmed Bookings </li>
-              <li class=<%= controller.controller_name == "my_rooms" ? "active" : "" %>><a href="/rooms_my_rooms">My Rooms </li>
+              <li class=<%= controller.controller_name == "rooms_authorization_rooms" ? "active" : "" %>><a href="/rooms/authorization_rooms">Unconfirmed Bookings </a></li>
+              <li class=<%= controller.controller_name == "my_rooms" ? "active" : "" %>><a href="/rooms/my_rooms">My Rooms </a></li>
             <%end%>
           </ul>
-            <ul class="nav navbar-nav ">
-              <%if user_signed_in?%>
-              <li><a action= '#' ><%=current_user.username%></a></li>
-              <li class="dropdown">
-               <li> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a></li>
-                <ul class="dropdown-menu">
-                  <li><%= link_to "Account Settings", edit_user_registration_path%></li>
-                  <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
-                  </ul>
+            <ul class="nav navbar-nav">
+                   
+                <li class="dropdown">
+                <li> <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" >Account <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                  <%if user_signed_in?%>  
+                    <li><%= link_to "Account Settings", edit_user_registration_path%></li>
+                    <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
                   <%else%>
-                  <li><%= link_to "Login", new_user_session_path%></li>
-                  <li> <%= link_to "Register", new_user_registration_path %></li>
-                  <%end%>
-              </li>
+                    <li><%= link_to "Login", new_user_session_path%></li>
+                    <li> <%= link_to "Register", new_user_registration_path %></li> 
+                  <%end%> 
+
+                  </ul>
+                  </li> 
+
+                </li>
+                <%if user_signed_in?%>
+                <li class="pull-right"><a href="#"><%= current_user.username%></a></li>
+                <%end%> 
+
             </ul>
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

@@ -3,7 +3,7 @@
 <% if @bookings.empty? %>
 <h4> No bookings found </h4>
 <%else%>
-<table border = '1'>
+<table class="table table-hover">
 	<thead>
 		<tr>
 			<th>Owner Name</th>
@@ -27,14 +27,14 @@
 <td><%= booking.end_date.to_formatted_s(:rfc822) %></td>
 <td><%= booking.room.price %></td>
 <td><%= booking.price %></td>
-<td><%= link_to "Cancel", booking_path(booking), method: :delete, data: {confirm: "Are you Sure?"} %></td>
-<% if booking.room.user_id == current_user.id%>
+<td><%= link_to "Cancel", booking_path(booking), method: :delete, data: {confirm: "Are you Sure?"},class: "btn btn-info" %>
+		<% if booking.room.user_id == current_user.id%>
 			<%= form_for booking do |f| %>
 			<%= f.hidden_field :is_confirmed, value: true%>
-			<td><%= f.submit "Confirm"%></td>
+			<td><%= f.submit "Confirm", class: "btn btn-info"%></td>
 			<%end%>
-
-	<%end%>
+		<%end%>
+</td>
 <%end%>
 
 		</tr>
